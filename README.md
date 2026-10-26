@@ -20,7 +20,7 @@ Open http://127.0.0.1:3010/. `npm run build` creates the deployable builder in `
 - Review imported fields against the extracted text before applying them.
 - Editable profile, experience, projects, education, skills and links.
 - Portrait and project-image uploads (JPG, PNG, WebP; 4 MB per image).
-- Editorial, Devfolio and original Orbit templates with custom accent colours.
+- Seven templates: Aitezaz, Shubh Devfolio, original Orbit 3D, Brittany, Ryan DevPortfolio, Simplefolio and Minimal CV, with custom accent colours.
 - Desktop/mobile preview and a large preview dialog, using the same HTML renderer as the export.
 - Local draft persistence in IndexedDB; JSON backup and restore.
 - Standalone website ZIP with embedded images, portfolio JSON, deployment instructions and applicable upstream license notices.
@@ -38,6 +38,8 @@ Exported sites have no server, analytics, account system, AI dependency or form 
 The **Aitezaz** option adapts the cream hero, stacked display/italic typography, availability stamp, dark about/experience sections and light project list from the Aitezaz-based `portfolio-v2` design. **Shubh Devfolio** adapts the black/violet palette, introduction hierarchy and name emphasis from [Devfolio](https://github.com/shubh73/devfolio). Both are editable standalone adaptations, not full unchanged upstream Next.js applications. MIT notices are retained in `licenses/` and in corresponding exported ZIPs. The underlying saved template IDs remain `editorial` and `devfolio` for draft compatibility. Space Grotesk, Instrument Serif and Geist font files are embedded in generated HTML; their OFL notices accompany exports.
 
 Orbit is an original implementation of a general floating-laptop portfolio concept. No source or assets from Jonathan Jesni's unlicensed repository are included. Preview artwork and sample content are original placeholders, not claims about real projects or people. See `THIRD_PARTY_NOTICES.md`.
+
+The four additional templates adapt their MIT-licensed sources into distinct standalone layouts: Brittany Chiang v4 (navy/mint, numbered sections and featured projects), Ryan Fitzgerald DevPortfolio (monospace details and structured sections), Simplefolio (white hero and teal bands), and Bartosz Jarocki CV (compact, print-friendly resume). Their source frameworks are not required by exported sites. Each corresponding ZIP includes its upstream MIT notice. Brittany's footer retains visible linked author credit. Picker thumbnails are screenshots of these actual renderers using fictional sample data.
 
 ## Project layout
 

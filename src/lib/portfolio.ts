@@ -6,6 +6,11 @@ import { templateStyles } from './template-styles'
 import displayLicense from '@fontsource/space-grotesk/LICENSE?raw'
 import serifLicense from '@fontsource/instrument-serif/LICENSE?raw'
 import bodyLicense from '@fontsource/geist/LICENSE?raw'
+import { renderAdditionalTemplate } from './additional-templates'
+import brittanyLicense from '../../licenses/brittany-MIT.txt?raw'
+import ryanLicense from '../../licenses/ryan-MIT.txt?raw'
+import simplefolioLicense from '../../licenses/simplefolio-MIT.txt?raw'
+import cvLicense from '../../licenses/cv-MIT.txt?raw'
 
 export const escapeHtml=(value:string)=>value.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!))
 export function safeUrl(value:string):string{
@@ -22,6 +27,8 @@ const baseCss=`
 // cannot navigate the preview into another copy of the builder.
 const portfolioRuntime=`document.addEventListener('click',function(event){var anchor=event.target.closest&&event.target.closest('a[href^="#"]');if(!anchor)return;var target=document.getElementById(anchor.getAttribute('href').slice(1));if(target){event.preventDefault();target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}});`
 export function renderPortfolio(data:Portfolio):string{
+  const additional=renderAdditionalTemplate(data,{escapeHtml,safeUrl,imageUrl,splitSkills,runtime:portfolioRuntime})
+  if(additional)return additional
   const e=escapeHtml, name=data.name.trim()||'Your name', first=name.split(' ')[0], rest=name.split(' ').slice(1).join(' ')
   const accent=/^#[0-9a-f]{6}$/i.test(data.accent)?data.accent:'#6ee7b7'
   const template=['editorial','devfolio','orbit'].includes(data.template)?data.template:'editorial'
@@ -54,6 +61,8 @@ export async function createWebsiteZip(data:Portfolio):Promise<Blob>{
   zip.file('licenses/Geist-OFL.txt',bodyLicense)
   if(data.template==='editorial')zip.file('licenses/aitezaz-MIT.txt',aitezazLicense)
   if(data.template==='devfolio')zip.file('licenses/devfolio-MIT.txt',devfolioLicense)
+  const extraLicenses={brittany:brittanyLicense,ryan:ryanLicense,simplefolio:simplefolioLicense,cv:cvLicense}
+  if(data.template in extraLicenses)zip.file(`licenses/${data.template}-MIT.txt`,extraLicenses[data.template as keyof typeof extraLicenses])
   zip.file('README.txt',`YOUR PORTFOLIO — Built with LaunchFolio\n\n1. Open index.html in your browser. Everything is included; no build or API key needed.\n2. To publish free: upload index.html (and keep the licenses folder with it) using Cloudflare Pages Direct Upload or Netlify's manual deployment. Choose the folder containing index.html, not this ZIP.\n3. Use the host's free subdomain. Custom domains are optional and can cost money. Free hosting limits apply.\n4. Contact buttons open the visitor's email app. There is no email server or contact-form service.\n5. Keep portfolio.json as an editable backup. In LaunchFolio use Import backup to restore it. It contains your contact details and any embedded photos: share only with people you intend.\n6. Uploaded resume PDFs are used only for extraction and are not bundled. Images are embedded in the HTML.\n\nTemplate: ${data.template}. ${data.template==='orbit'?'Original LaunchFolio CSS 3D design. No code or assets copied from Jonathan Jesni.':'Adapted into a standalone template from the MIT-licensed upstream portfolio; retain the included license notice when distributing.'}\n`)
   return zip.generateAsync({type:'blob',compression:'DEFLATE'})
 }
