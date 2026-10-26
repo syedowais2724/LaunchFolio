@@ -1,4 +1,4 @@
-export type TemplateId = 'editorial' | 'devfolio' | 'orbit' | 'brittany' | 'ryan' | 'simplefolio' | 'cv'
+export type TemplateId = 'editorial' | 'devfolio' | 'orbit' | 'vcard' | 'nextmotion' | 'craft'
 export type Experience = { id: string; company: string; role: string; period: string; description: string }
 export type Project = { id: string; title: string; description: string; tags: string; url: string; image: string }
 export type Education = { id: string; school: string; degree: string; period: string }
@@ -12,12 +12,15 @@ export const templateList: { id: TemplateId; name: string; label: string; descri
   { id: 'editorial', name: 'Aitezaz', label: 'BOLD & EXPRESSIVE', description: 'The design behind your portfolio: a cream opening, oversized type, italic name and dark sections.', source: 'Aitezaz’s MIT portfolio, adapted from the portfolio-v2 design' },
   { id: 'devfolio', name: 'Shubh Devfolio', label: 'CLEAN & CONFIDENT', description: 'Shubh’s black-and-violet developer style, signature name underline and clear project cards.', source: 'Shubh Porwal’s MIT Devfolio, adapted for editable content' },
   { id: 'orbit', name: 'Orbit 3D', label: 'IMMERSIVE & PLAYFUL', description: 'An original take on the floating-laptop concept, with 3D motion and cosmic colours.', source: 'Original LaunchFolio CSS 3D; no Jonathan Jesni code or assets' },
-  { id: 'brittany', name: 'Brittany', label: 'NAVY & MINT', description: 'Numbered sections, a navy canvas and featured project layouts from Brittany Chiang’s v4.', source: 'Brittany Chiang’s MIT v4, with visible author credit' },
-  { id: 'ryan', name: 'Ryan DevPortfolio', label: 'MODERN & STRUCTURED', description: 'A spacious introduction, monospace details, project cards and a clear experience timeline.', source: 'Ryan Fitzgerald’s MIT DevPortfolio' },
-  { id: 'simplefolio', name: 'Simplefolio', label: 'BRIGHT & DIRECT', description: 'A white introduction, teal about section and generous project showcases.', source: 'Jacobo Martínez / cobiwave’s MIT Simplefolio' },
-  { id: 'cv', name: 'Minimal CV', label: 'COMPACT & PRINTABLE', description: 'A focused resume-style page with work history, skills and compact project cards.', source: 'Bartosz Jarocki’s MIT CV template' },
+  { id: 'vcard', name: 'vCard', label: 'CHARCOAL & AMBER', description: 'A fixed profile sidebar, amber highlights and working About, Resume, Projects and Contact tabs.', source: 'codewithsadee’s MIT vCard, adapted to your portfolio content' },
+  { id: 'nextmotion', name: 'nextMotion', label: 'ANIMATED & MODERN', description: 'A dot-grid introduction, animated profile card and a bold project grid.', source: 'Jacob Pixler’s MIT nextMotion, adapted for standalone export' },
+  { id: 'craft', name: 'Craft', label: 'PERSONAL & PLAYFUL', description: 'A warm, compact homepage with theme switching and an original interactive 3D scene.', source: 'Takuya Matsuyama’s homepage, with attribution; original 3D artwork' },
 ]
-export const templateAccents: Record<TemplateId,string> = { editorial:'#6ee7b7',devfolio:'#9f55ff',orbit:'#f0abfc',brittany:'#64ffda',ryan:'#8b5cf6',simplefolio:'#02aab0',cv:'#52525b' }
+export const templateAccents: Record<TemplateId,string> = { editorial:'#6ee7b7',devfolio:'#9f55ff',orbit:'#f0abfc',vcard:'#ffdb70',nextmotion:'#93c5fd',craft:'#319795' }
+export function migrateTemplate(value:unknown):unknown{
+  if(value&&typeof value==='object'&&'template' in value&&['brittany','ryan','simplefolio','cv'].includes(String(value.template)))return {...value,template:'editorial'}
+  return value
+}
 export const emptyPortfolio: Portfolio = {
   name: '', title: '', location: '', email: '', bio: '', github: '', linkedin: '', website: '', photo: '',
   skills: '', experience: [], projects: [], education: [], available: true, template: 'editorial', accent: '#6ee7b7',

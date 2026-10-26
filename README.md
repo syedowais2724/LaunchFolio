@@ -20,7 +20,7 @@ Open http://127.0.0.1:3010/. `npm run build` creates the deployable builder in `
 - Review imported fields against the extracted text before applying them.
 - Editable profile, experience, projects, education, skills and links.
 - Portrait and project-image uploads (JPG, PNG, WebP; 4 MB per image).
-- Seven templates: Aitezaz, Shubh Devfolio, original Orbit 3D, Brittany, Ryan DevPortfolio, Simplefolio and Minimal CV, with custom accent colours.
+- Six templates: Aitezaz, Shubh Devfolio, original Orbit 3D, vCard, nextMotion and Craft, with custom accent colours.
 - Desktop/mobile preview and a large preview dialog, using the same HTML renderer as the export.
 - Local draft persistence in IndexedDB; JSON backup and restore.
 - Standalone website ZIP with embedded images, portfolio JSON, deployment instructions and applicable upstream license notices.
@@ -39,7 +39,7 @@ The **Aitezaz** option adapts the cream hero, stacked display/italic typography,
 
 Orbit is an original implementation of a general floating-laptop portfolio concept. No source or assets from Jonathan Jesni's unlicensed repository are included. Preview artwork and sample content are original placeholders, not claims about real projects or people. See `THIRD_PARTY_NOTICES.md`.
 
-The four additional templates adapt their MIT-licensed sources into distinct standalone layouts: Brittany Chiang v4 (navy/mint, numbered sections and featured projects), Ryan Fitzgerald DevPortfolio (monospace details and structured sections), Simplefolio (white hero and teal bands), and Bartosz Jarocki CV (compact, print-friendly resume). Their source frameworks are not required by exported sites. Each corresponding ZIP includes its upstream MIT notice. Brittany's footer retains visible linked author credit. Picker thumbnails are screenshots of these actual renderers using fictional sample data.
+The three replacements adapt vCard (sticky profile sidebar and keyboard-accessible content tabs), nextMotion (dot-grid hero, animated profile card and project grid), and Craft (compact personal homepage, light/dark toggle and an original draggable CSS 3D desk). Each standalone ZIP includes the corresponding license notice. Craft retains linked attribution to Takuya Matsuyama; no restricted voxel dog, model or upstream personal assets are included. Existing drafts/backups using the four retired templates migrate to Aitezaz without losing their content.
 
 ## Project layout
 

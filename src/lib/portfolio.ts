@@ -6,11 +6,10 @@ import { templateStyles } from './template-styles'
 import displayLicense from '@fontsource/space-grotesk/LICENSE?raw'
 import serifLicense from '@fontsource/instrument-serif/LICENSE?raw'
 import bodyLicense from '@fontsource/geist/LICENSE?raw'
-import { renderAdditionalTemplate } from './additional-templates'
-import brittanyLicense from '../../licenses/brittany-MIT.txt?raw'
-import ryanLicense from '../../licenses/ryan-MIT.txt?raw'
-import simplefolioLicense from '../../licenses/simplefolio-MIT.txt?raw'
-import cvLicense from '../../licenses/cv-MIT.txt?raw'
+import { renderAdditionalTemplate } from './replacement-templates'
+import vcardLicense from '../../licenses/vcard-MIT.txt?raw'
+import nextmotionLicense from '../../licenses/nextmotion-MIT.txt?raw'
+import craftLicense from '../../licenses/craft-LICENSE.txt?raw'
 
 export const escapeHtml=(value:string)=>value.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!))
 export function safeUrl(value:string):string{
@@ -61,8 +60,9 @@ export async function createWebsiteZip(data:Portfolio):Promise<Blob>{
   zip.file('licenses/Geist-OFL.txt',bodyLicense)
   if(data.template==='editorial')zip.file('licenses/aitezaz-MIT.txt',aitezazLicense)
   if(data.template==='devfolio')zip.file('licenses/devfolio-MIT.txt',devfolioLicense)
-  const extraLicenses={brittany:brittanyLicense,ryan:ryanLicense,simplefolio:simplefolioLicense,cv:cvLicense}
-  if(data.template in extraLicenses)zip.file(`licenses/${data.template}-MIT.txt`,extraLicenses[data.template as keyof typeof extraLicenses])
+  const extraLicenses={vcard:vcardLicense,nextmotion:nextmotionLicense,craft:craftLicense}
+  if(data.template in extraLicenses)zip.file(`licenses/${data.template}${data.template==='craft'?'-LICENSE':'-MIT'}.txt`,extraLicenses[data.template as keyof typeof extraLicenses])
+  if(data.template==='craft')zip.file('ATTRIBUTION.txt','This website is built based on Takuya Matsuyama\'s website (https://www.craftz.dog/). Retain the visible attribution link and included source license. The 3D desk is original LaunchFolio CSS artwork. The restricted Craftzdog voxel dog and its model files are not included.')
   zip.file('README.txt',`YOUR PORTFOLIO — Built with LaunchFolio\n\n1. Open index.html in your browser. Everything is included; no build or API key needed.\n2. To publish free: upload index.html (and keep the licenses folder with it) using Cloudflare Pages Direct Upload or Netlify's manual deployment. Choose the folder containing index.html, not this ZIP.\n3. Use the host's free subdomain. Custom domains are optional and can cost money. Free hosting limits apply.\n4. Contact buttons open the visitor's email app. There is no email server or contact-form service.\n5. Keep portfolio.json as an editable backup. In LaunchFolio use Import backup to restore it. It contains your contact details and any embedded photos: share only with people you intend.\n6. Uploaded resume PDFs are used only for extraction and are not bundled. Images are embedded in the HTML.\n\nTemplate: ${data.template}. ${data.template==='orbit'?'Original LaunchFolio CSS 3D design. No code or assets copied from Jonathan Jesni.':'Adapted into a standalone template from the MIT-licensed upstream portfolio; retain the included license notice when distributing.'}\n`)
   return zip.generateAsync({type:'blob',compression:'DEFLATE'})
 }
